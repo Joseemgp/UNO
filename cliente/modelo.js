@@ -93,7 +93,21 @@ function Jugador(nick,juego){
         return this.juego.partida[codigo];
     }
 
-    this.pasarTurno
+    this.pasarTurno = function() {
+        var partida = this.obtenerPartida(this.codigoPartida)
+        partida.pasarTurno(this.nick)
+    }
+
+    this.jugarCarta = function(carta) {
+        var partida = this.obtenerPartida(this.codigoPartida)
+        var index = this.mano.indexOf(carta)
+        if (this.nick == partida.turno.nick) {
+            this.mano.splice(index, 1)
+            partida.jugarCarta(carta)
+        } else {
+            alert("No es tu turno")
+        }
+    }
 }
 
 function randomInt(low, high) {
@@ -108,6 +122,9 @@ function Partida(codigo,jugador,numJug){
     this.numJug=numJug;
     this.jugadores={};
     this.jugadores[jugador.nick]=jugador;
+    this.ronda=0;
+    this.turno=undefined;
+    this.mesa=[];
     this.fase=new Inicial();
     this.unirAPartida=function(jugador){
         this.fase.unirAPartida(this,jugador);
@@ -152,6 +169,8 @@ function Partida(codigo,jugador,numJug){
         
     }
 
+    
+
     this.unirAPartida(jugador);
     this.asignarunaCarta=function(){
         var longitud=this.mazo.length
@@ -169,17 +188,44 @@ function Partida(codigo,jugador,numJug){
         return cartas;
      }
 
-     this.asignarTurno=function(){
-         var nick=this.ordenTurno[0];
-         this.turno=this.jugadores[nick];
+     this.turnoInicial = function() {
+        this.turno = propietario
+    }
+
+   
+     this.pasarTurno = function(nick) {
+        if(nick == this.turno.nick) {
+            if(this.ronda < this.numeroJugadores()-1) {
+                this.ronda += 1
+                this.turno = this.jugadores[this.nombresJug[this.ronda]]
+            } else {
+                this.ronda += 1
+                this.turno = this.jugadores[this.nombresJug[this.ronda%this.numeroJugadores()]]
+            }
+        } else {
+            alert("No es tu turno")
+        }
      }
-     this.pasarTurno=function(nickJugador){
-         var nick=this.turno.nick;
-         if(nick==nickJugador){
-             var indice=this.ordenTurno.indexOf(nick);
-             var siguiente=(indice+1)%(Object.keys)
-         }
-     }
+     this.cartaInicial = function() {
+        var longitudMazo = this.mazo.length
+        var random = Math.random() * (longitudMazo - 0) + 0
+        var carta = this.mazo.splice(random, 1)
+        this.mesa.push(carta[0])
+    }
+
+    this.cartaActual = function() {
+        return this.mesa[this.mesa.length-1]
+    }
+
+    this.jugarCarta = function(carta) {
+        this.mesa.push(carta)
+    }
+
+    this.crearMazo()
+    this.cartaInicial()
+    this.turnoInicial()
+    this.unirAPartida(propietario)
+
 }
 
 function Inicial(){
@@ -249,3 +295,4 @@ function Prueba(){
     juego.agregarJugador("pepe");
 
 }
+
