@@ -1,0 +1,23 @@
+{
+  "name": "uno",
+  "version": "1.0.0",
+  "description": "Trabajo de la asignatura de Procesos Ingeniería del  Software del curso 2122",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node servidor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joseemgp/UNO.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joseemgp/UNO/issues"
+  },
+  "homepage": "https://joseemgp.github.io/UNO/",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jasmine-node": "^3.0.0"
+  }
+}
