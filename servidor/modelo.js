@@ -3,13 +3,17 @@ function Juego(){
     this.partidas={};
 
     this.agregarJugador=function(nick){
+
+        var res= {nick:-1};
         if (!this.usuarios[nick]){
             var jugador= new Jugador(nick,this);
             this.usuarios[nick]=jugador;
+            res={nick:nick};
         }
         else{
-            console.log("El nick está en uso");
+            console.log("El nick "+nick+ "está en uso");
         }
+        return res;
     }
 
     this.crearPartida=function(nick,numJug){
@@ -306,6 +310,7 @@ function Jugando(){
     this.nombre="jugando";
     this.unirAPartida=function(partida,jugador){
         console.log("La partida ya ha comenzado");
+        jugador.codigoPartida=-1;
     }
     this.jugarCarta=function(carta,nick,partida){
        partida.puedeJugarCarta(carta,nick);
@@ -318,6 +323,7 @@ function Final(){
     this.nombre="final";
     this.unirAPartida=function(partida,jugador){
         console.log("La partida ha terminado");
+        jugador.codigoPartida=-1;
     }
     this.jugarCarta=function(carta,nick,partida){
        console.log("La partida ha terminado ya ")

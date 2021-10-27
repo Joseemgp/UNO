@@ -2,8 +2,17 @@
 <html lang="en">
     <head>
     <title>El juego del Uno</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src= https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js></script>
+
+    <script src="/cliente/ClienteRest.js"></script>
+    <script src ="/cliente/ClienteWS.js"></script>
     </head>
     <body>
-    <script src="cliente/modelo.js"></script>
+        <script type ="text/javascript">
+            var rest = new ClienteRest();
+            
+            ws=new ClienteWS();
+        </script>
     </body>
 </html>
