@@ -9,8 +9,8 @@ function ClienteRest(){
         //sigue la ejecucion sin esperar 
         //mostrar una ruleta
     }
-    this.crearPartida=function(nick,numJug){
-        $.getJSON("/crearPartida/"+nick+"/"+numJug,function(data){
+    this.crearPartida=function(numJug,nick){
+        $.getJSON("/crearPartida/"+numJug+"/"+nick,function(data){
             console.log(data);
         })
     }

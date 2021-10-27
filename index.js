@@ -31,7 +31,7 @@ app.get("/agregarJugador/:nick",function(request,response){
 
 
 //crear partida
-app.get("/crearPartida/:nick/:numJug",function(request,response){
+app.get("/crearPartida/:numJug/:nick",function(request,response){
     var nick=request.params.nick;
     var numJug= request.params.numJug;
     var ju1=juego.usuarios[nick];
@@ -41,6 +41,8 @@ app.get("/crearPartida/:nick/:numJug",function(request,response){
         var partida=ju1.crearPartida(num);
         console.log("Nueva partida de "+nick+"codigo:")
         res.codigo=ju1.codigoPartida;
+    }else{
+        console.log("usuario no existe")
     }
     response.send(res);
 })

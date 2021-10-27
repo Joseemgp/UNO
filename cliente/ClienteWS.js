@@ -19,7 +19,9 @@ function ClienteWS(){
     this.manoInicial=function(){
         this.emit("manoInicial",this.nick);
     }
-
+    this.jugarCarta=function(num){
+        this.socket.emit("jugarCarta",this.nick,numJug)
+    }
     
 
 
@@ -32,7 +34,7 @@ function ClienteWS(){
 
         this.socket.on("partidaCreada",function(data){
             console.log(data);
-            cli.codigo=data.codigo
+            cli.codigo=data.codigo;
         })
         this.socket.on("unidoAPartida",function(data){
             console.log(data);
@@ -45,6 +47,13 @@ function ClienteWS(){
             console.log(data);
             cli.meToca();
         })
+
+        this.socket.on("turno",function(data){
+            console.log(data);
+            cli.meToca();
+        })
+
+        
         //entrada para la respuesta del WS
     }
     this.conectar();
