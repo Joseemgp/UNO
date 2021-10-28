@@ -17,10 +17,16 @@ function ClienteWS(){
         
     }
     this.manoInicial=function(){
-        this.emit("manoInicial",this.nick);
+        this.socket.emit("manoInicial",this.nick);
     }
-    this.jugarCarta=function(num){
+    this.jugarCarta=function(numJug){
         this.socket.emit("jugarCarta",this.nick,numJug)
+    }
+    this.robarCarta=function(numJug){
+        this.socket.emit("robar carta ",this.nick,numJug)
+    }
+    this.pasarTurno=function(){
+        this.socket.emit("pasarTurno",this.nick)
     }
     
 
@@ -45,12 +51,18 @@ function ClienteWS(){
         })
         this.socket.on("mano",function(data){
             console.log(data);
-            cli.meToca();
+            //cli.meToca();
         })
 
         this.socket.on("turno",function(data){
             console.log(data);
-            cli.meToca();
+            //cli.meToca();
+        })
+        this.socket.on("fallo",function(data){
+            console.log(data);
+        })
+        this.socket.on("Final", function(data){
+            console.log(data)
         })
 
         

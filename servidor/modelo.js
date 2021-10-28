@@ -19,13 +19,15 @@ function Juego(){
     this.crearPartida=function(nick,numJug){
         var codigo="patata";
         var jugador=this.usuarios[nick];
+        var partida;
+        if(numJug>=2 && numJug<=8){
         codigo=this.obtenerCodigo();
         while (this.partidas[codigo]){
             codigo=this.obtenerCodigo();
         };
         var partida=new Partida(codigo,jugador,numJug);
         this.partidas[codigo]=partida;
-
+    }
         return partida;
     }
 
@@ -83,9 +85,11 @@ function Jugador(nick,juego){
     }
     this.robar=function(num){
         var partida=this.obtenerPartida(this.codigoPartida);
+        if(partida.turno.nick==this.nick){
         var robadas=partida.dameCartas(num);
         //var tmp=this.mano;
         this.mano=this.mano.concat(robadas);
+        }
     }
     this.manoInicial=function(){
         var partida=this.obtenerPartida(this.codigoPartida);
@@ -103,9 +107,11 @@ function Jugador(nick,juego){
 
     this.jugarCarta=function(num){
         var carta=this.mano[num];
+        if(carta){
         var partida=this.obtenerPartida(this.codigoPartida);
         partida.jugarCarta(carta);
         partida.jugarCarta(carta,this.nick)
+        }
     }
     this.quitarCarta=function(carta){
         var indice=this.mano.indexOf(carta);
@@ -130,12 +136,13 @@ function Partida(codigo,jugador,numJug){
     this.mesa=[];
     this.cartaActual;
     this.unirAPartida=function(jugador){
-        this.fase.unirAPartida(this,jugador);
+         this.fase.unirAPartida(this,jugador);
     }
     this.puedeUnirAPartida=function(jugador){
         this.jugadores[jugador.nick]=jugador;
         jugador.codigoPartida=this.codigo;
         this.ordenTurno.push(jugador.nick);
+        
     }
     this.numeroJugadores=function(){
 		return Object.keys(this.jugadores).length;
