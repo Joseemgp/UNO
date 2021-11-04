@@ -42,6 +42,22 @@ function Juego(){
         return lista;
     }
 
+
+    this.obtenerPartidasDisponibles=function(){
+        var lista=[];
+
+        for(each in this.partidas){
+            var partida=this.partidas[each];
+            if(partida.fase.nombre=="inicial"){
+                var huecos= partida.numJug=partida.numeroJugadores();
+                lista.push({propietario:partida.propietario,codigo:each})
+
+            }
+        }
+
+        return lista;
+    }
+
     this.unirAPartida=function(codigo,nick){
         if (this.partidas[codigo]){
             var jugador=this.usuarios[nick];
@@ -344,6 +360,7 @@ function Numero(valor,color){
     this.tipo="numero";
     this.color=color;
     this.valor=valor;
+    this.nombre="numero"+valor;
     this.comprobarEfecto=function(partida){
         console.log("No hay efectos");
     }
@@ -351,6 +368,7 @@ function Numero(valor,color){
 
 function Cambio(valor,color){
     this.tipo="cambio";
+    this.nombre="cambio"+"color";
     this.color=color;
     this.valor=valor;   
     this.comprobarEfecto=function(partida){

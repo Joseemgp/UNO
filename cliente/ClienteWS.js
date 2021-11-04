@@ -7,7 +7,7 @@ function ClienteWS(){
         this.servidorWSCliente();
     }
     this.crearPartida=function(numJug,nick){
-        this.nick=nick;
+       // this.nick=nick;
         this.socket.emit("crearPartida",numJug,nick);
 
     }
@@ -42,6 +42,13 @@ function ClienteWS(){
             console.log(data);
             cli.codigo=data.codigo;
         })
+        this.socket.on("nuevaPartida",function(lista){
+            if(!cli.codigo && cli.nick){
+                iu.mostrarListaPrtidas(lista);
+
+            }
+
+        })
         this.socket.on("unidoAPartida",function(data){
             console.log(data);
             cli.codigo=data.codigo;
@@ -51,12 +58,14 @@ function ClienteWS(){
         })
         this.socket.on("mano",function(data){
             console.log(data);
+            iu.mostrarMano(data);
             //cli.meToca();
         })
 
         this.socket.on("turno",function(data){
             console.log(data);
             //cli.meToca();
+            iu.mostrarCartaActual(data.cartaActual)
         })
         this.socket.on("fallo",function(data){
             console.log(data);

@@ -64,6 +64,8 @@ app.get("/unirAPartida/:codigo/:nick",function(request,response){
     }
     response.send(response);
 })
+
+
 //obtener lista de partidas
 
 
