@@ -112,6 +112,31 @@ describe("El juego del UNO...", function() {
         expect(partida.direccion.nombre).toEqual("derecha");
         expect(partida.cartaActual).toBeDefined();
       })
+
+      it("Ana intenta robar 1 carta pero no quedan cartas en el mazo",function(){
+        expect(partida.mazo.length).toBe(17);
+        partida.mesa=partida.mesa.concat(partida.mazo);
+        partida.mazo=[];
+        expect(partida.mesa.length).toBe(17);
+        expect(ju1.mano.length).toBe(3);
+
+        ju1.robar(1);
+        expect(ju1.mano.length).toBe(4);
+        expect(partida.mesa.length).toBe(16);
+
+        
+      })
+      it("Ana roba todas las cartas del mazo y pierde el turno",function(){
+        expect(partida.mazo.length).toBe(17);
+        expect(ju1.mano.length).toBe(3);
+        ju1.roba(17);
+        expect(ju1.mano.length).toBe(20);
+        expect(partida.turno.nick).toBe(ju1.nick);
+        ju1.robar(1);
+        expect(partida.turno.nick).toBe(ju2.nick);
+
+
+      })
       })
   
     });

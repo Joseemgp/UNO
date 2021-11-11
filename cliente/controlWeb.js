@@ -10,10 +10,11 @@ function ControlWeb(){
             if(nick==""){
                 iu.mostrarModal("Introduce tu nick");
             }
+            $("body").append('<p id="nick" class="d-none">'+nick+'</p> ')
             $("#mAJ").remove();
             rest.agregarJugador(nick);
-            iu.mostrarCrearPartida();
-            iu.mostrarUnirAPartida();
+           // iu.mostrarCrearPartida();
+           // iu.mostrarUnirAPartida();
         })
 
         
@@ -31,7 +32,8 @@ function ControlWeb(){
             $("#mCP").remove();
             $("#mUA").remove();
             rest.crearPartida(numJug,nick);
-            var cadena3='<br></br><label for="numJug">Numero Jugadores:'+numJug+'</label><br></br><label for="usr">Nick:'+nick+'</label>';
+            var cadena3='<br></br><label for="numJug">Numero Jugadores:'+numJug+'</label>'; 
+            //<br></br><label for="usr">Nick:'+nick+'</label>';
 
                 cadena3=cadena3+"</div>";
 
@@ -72,7 +74,9 @@ function ControlWeb(){
 
             var codigo=lista[i].codigo;
 
-            cadena=cadena+ '<a href="#" class="list-group-item list-group-item-action" value="'+codigo+'">'+codigo+'</a>';
+            var propietario=lista[i].propietario;
+
+            cadena=cadena+ '<a href="#" class="list-group-item list-group-item-action" value="'+codigo+'">'+codigo+'  || '+propietario+'</a>';
 
         }
 
@@ -93,14 +97,16 @@ function ControlWeb(){
 
             console.log(codigo+" "+nick);
 
-            $("mOLP").remove();
+            $("#mOLP").remove();
 
-            $("mCP").remove();
+            $("#mCP").remove();
 
             ws.unirAPartida(codigo,nick);
 
-        })
-        
+        });
+
+
+
     }
     this.mostrarModal=function(msg){
         $('#cM').remove();

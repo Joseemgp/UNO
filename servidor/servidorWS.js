@@ -206,10 +206,16 @@ function ServidorWS(){
                 var ju1=juego.usuarios[nick];
 
                 if(ju1){
-
+                    var num=ju1.robar(num);
                     ju1.robar(num);
 
                     cli.enviarAlRemitente(socket,"mano",ju1.mano);
+                    if(num==0){
+                            var codigo=ju1.codigoPartida
+                            var partida=juego.partidas[codigo]
+                            var nickturno=partida.turno.nick
+                            cli.enviarATodos(io,codigo,"turno",{turno:nickTurno, cartaActual:partida.cartaActual});
+                        }
 
                 }else{
 

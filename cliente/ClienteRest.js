@@ -7,6 +7,8 @@ function ClienteRest(){
                 if(data.nick!=-1){
                     ws.nick=data.nick;
                     rest.obtenerTodasPartidas();
+                    iu.mostrarCrearPartida();
+                    iu.mostrarListaPartidas();
                 }else{
                     iu.mostrarModal("El nick"+nick+"esta en uso");
                     
@@ -39,6 +41,7 @@ function ClienteRest(){
     this.obtenerTodasPartidas=function(){
         $.getJSON("/obtenerTodasPartidas/",function(data){
             console.log(data);
+            iu.mostrarTodasPartidas(data);
         })
     }
 

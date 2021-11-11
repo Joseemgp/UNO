@@ -44,7 +44,7 @@ function ClienteWS(){
         })
         this.socket.on("nuevaPartida",function(lista){
             if(!cli.codigo && cli.nick){
-                iu.mostrarListaPrtidas(lista);
+                iu.mostrarListaPartidas(lista);
 
             }
 

@@ -68,6 +68,14 @@ app.get("/unirAPartida/:codigo/:nick",function(request,response){
 
 //obtener lista de partidas
 
+app.get("/obtenerTodasPartidas",function(request,response){
+
+    var res = juego.obtenerTodasPartidas();
+
+    response.send(res);
+
+});
+
 
 http.listen(app.get('port'),function(){
     console.log("La app NodeJS se esta ejecutando en el puerto", app.get("port"));

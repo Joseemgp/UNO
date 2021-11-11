@@ -36,7 +36,7 @@ function Juego(){
 
         for(each in this.partidas){
             var partida=this.partidas[each];
-            lista.push({propietario:partida.propietario,codigo:each})
+            lista.push({propietario:partida.propietario,codigo:each, fase:partida.fase.nombre})
         }
 
         return lista;
@@ -100,12 +100,21 @@ function Jugador(nick,juego){
         this.juego.unirAPartida(codigo,nick);
     }
     this.robar=function(num){
+        var numRobadas=-1;
         var partida=this.obtenerPartida(this.codigoPartida);
         if(partida.turno.nick==this.nick){
         var robadas=partida.dameCartas(num);
-        //var tmp=this.mano;
-        this.mano=this.mano.concat(robadas);
+        if(robadas.length<=0){
+            partida.pasarTurno(this.nick);
+            numRobadas=0;
+        }else{
+            this.mano=this.mano.concat(robadas);
+            numRobadas=robadas.length;
+
         }
+        //var tmp=this.mano;
+        }
+        return numRobadas;
     }
     this.manoInicial=function(){
         var partida=this.obtenerPartida(this.codigoPartida);
@@ -206,6 +215,11 @@ function Partida(codigo,jugador,numJug){
     }
     this.dameCartas=function(num){
         var cartas=[];
+        if (this.mazo.length<num){
+            this.mazo=this.mazo.concat(this.mesa);
+           // this.mazo.push(this.cartaActual);
+            this.mesa=[];
+        }
         for(i=0;i<num;i++){
             var carta=this.asignarUnaCarta();
             if (carta){
