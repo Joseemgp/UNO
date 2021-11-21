@@ -6,11 +6,13 @@ function ClienteRest(){
                 console.log(data);
                 if(data.nick!=-1){
                     ws.nick=data.nick;
-                    rest.obtenerTodasPartidas();
-                    iu.mostrarCrearPartida();
+                    $.cookie("nick",data.nick);
                     iu.mostrarListaPartidas();
+                    rest.obtenerTodasPartidas();
+                   iu.mostrarHome();
                 }else{
                     iu.mostrarModal("El nick"+nick+"esta en uso");
+                    iu.mostrarAgregarJugador();
                     
                 }
             

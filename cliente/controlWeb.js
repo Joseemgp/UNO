@@ -1,4 +1,14 @@
 function ControlWeb(){
+
+    this.comprobarUsuario=function(){
+        if($.cookie("nick")){
+            ws.nick=$.cookie("nick");
+            iu.mostrarHome({nick:ws.nick});
+
+        }else{
+            iu.mostrarAgregarJugador();
+        }
+    }
     this.mostrarAgregarJugador=function(){
         var cadena='<div id="mAJ"><label for="usr">Nick:</label>';
         cadena= cadena + '<input type="text" class="form-control" placeholder="Introduce tu nick" id="usr">';
@@ -18,6 +28,12 @@ function ControlWeb(){
         })
 
         
+    }
+    this.mostrarHome=function(data){
+        //iu.mostrarListaPartidas(); no se si poner esto
+        iu.mostrarCrearPartida();
+        
+        cli.obtenerPartidasDisponibles();
     }
 
     this.mostrarCrearPartida=function(){

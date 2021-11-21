@@ -28,6 +28,14 @@ function ClienteWS(){
     this.pasarTurno=function(){
         this.socket.emit("pasarTurno",this.nick)
     }
+
+    this.abandonarPartida=function(){
+        this.socket.emit("abandonarPartida",this.nick);
+    }
+
+    this.cerrarSesion=function(){
+        this.socket.emit("cerrarSesion",this.nick);
+    }
     
 
 
@@ -74,6 +82,19 @@ function ClienteWS(){
             console.log(data)
         })
 
+        this.socket.on("jugadorAbandona",function(){
+            iu.mostrarModal("Un jugador abandona la partida")
+            iu.limpiar();
+            iu.mostrarHome(nick);
+            cli.codigo="";
+        })
+        this.socket.on("usuarioEliminado",function(){
+            cli.nick="";
+            cli.codigo="";
+            $.removeCookie("nick");
+            iu.limpiar();
+            iu.mostrarAgregarJugador();
+        })
         
         //entrada para la respuesta del WS
     }

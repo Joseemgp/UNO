@@ -8,6 +8,11 @@ function ServidorWS(){
         socket.emit(mensaje,datos);
 
     }
+    this.enviarATodosMenosRemitente=function(socket,nombre,mensaje,datos){
+        socket.to(nombre).emit(mensaje,datos);
+
+   };
+
 
  
 
@@ -248,6 +253,34 @@ function ServidorWS(){
                     cli.enviarAlRemitente(socket,"fallo","El usuario  no existe");
 
             }
+
+            socket.on("abandonarPartida",function(nick){
+                var ju1=juego.usuarios[nick];
+                if(ju1){
+                    ju1.abandonarPartida();
+                    var codigo=ju1.codigoPartida;
+
+                    cli.enviarATodos(io,codigo,"jugadorAbandona",{});
+
+                }
+            })
+
+            socket.on("cerrarSesion",function(nick){
+                var ju1=juego.usuarios[nick];
+                if(ju1){
+                    
+                    var codigo=ju1.codigoPartida;
+
+                    var partida=juego.partidas[codigo];
+                    if(partida){
+                        ju1.abandonarPartida();
+                        cli.enviarATodosMenosRemitente(socket,codigo,"Jugador abandona",{});
+                    }
+                    ju1.cerrarSesion();
+                    cli.enviarAlRemitente(socket,"Usuario Eliminado",{});
+
+                }
+            })
 
  
 

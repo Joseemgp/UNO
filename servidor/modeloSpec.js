@@ -137,6 +137,15 @@ describe("El juego del UNO...", function() {
 
 
       })
+      it("Ana abandona la partida",function(){
+        expect(partida.fase.nombre).toBe("jugando");
+        ju1.abandonarPartida();
+        expect(partida.fase.nombre).toBe("final");
+      })
+
+      it("Ana cierra sesion",function(){
+        
+      })
       })
   
     });

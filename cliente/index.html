@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src= https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 
     <script src="/cliente/ClienteRest.js"></script>
@@ -78,8 +79,8 @@
             
             ws=new ClienteWS();
             iu=new ControlWeb();
-            iu.mostrarAgregarJugador();
-        
+            //iu.mostrarAgregarJugador();
+            iu.comprobarUusario();
         </script>
     </body>
 </html>
